@@ -1,0 +1,36 @@
+data "aws_ssm_parameter" "my_amzn_linux_ami" {
+  name = "/aws/service/ami-amazon-linux-latest/amzn2-ami-hvm-x86_64-gp2"
+}
+
+
+resource "random_string" "random" {
+  length  = 16
+  special = true
+}
+
+
+resource "aws_instance" "web" {
+  count         = 1
+  ami           = data.aws_ssm_parameter.my_amzn_linux_ami.insecure_value
+  instance_type = "t2.micro"
+
+  tags = {
+    Name = "esargsyan_HelloWorld - ${random_string.random.result}"
+  }
+}
+
+
+#launch template part
+  tag_specifications {
+    resource_type = "instance"
+    tags = {
+      Name = "example-instance"
+    }
+  }
+
+resource "aws_instance" "example" {
+  launch_template {
+    id      = aws_launch_template.example.id
+    version = "$Latest"
+  }
+}
