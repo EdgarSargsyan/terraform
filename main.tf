@@ -10,10 +10,6 @@ locals {
 
 
 # security group stuff
-data "aws_security_group" "sg" {
-  name = var.security_group_name
-}
-
 resource "aws_security_group" "sg-tf" {
   name        = var.security_group_name
   description = var.security_group_description
@@ -56,7 +52,7 @@ resource "aws_launch_template" "launch_template_tf" {
   network_interfaces {
     device_index                = 0
     associate_public_ip_address = true
-    security_groups             = [data.aws_security_group.sg.id]
+    security_groups             = [aws_security_group.sg-tf.id]
   }
 
   instance_type = var.instance_type_tf
