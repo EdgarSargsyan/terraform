@@ -1,0 +1,7 @@
+vpc_id                     = "vpc-0799504f6df9624a0"
+security_group_name        = "esargsyan-sg-tf"
+security_group_description = "Example security group from tf"
+launch_template_name       = "esargsyan_launch_template_tf"
+instance_type_tf           = "t2.micro"
+key_pair_tf                = "sunnyscool"
+availability_zone_tf       = "us-east-1a"
